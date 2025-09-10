@@ -32,6 +32,10 @@
         .footer{text-align:center;padding:10px}
         .footer a{color:#888;text-decoration:none;font-size:14px}
         .release-button{background-color:#dc3545;color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:12px;}
+        #draw-button{background-color:#007bff;color:white;margin-top:10px;}
+        #winner-display{text-align:center;padding:20px;}
+        #winner-number{font-size:80px;font-weight:900;color:#FFD700;animation:winner-pop 0.5s ease-out;}
+        @keyframes winner-pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
     </style>
 </head>
 <body>
@@ -39,9 +43,7 @@
     <div class="container">
         <h1>Mês do Cliente Athletic</h1>
         <p>Escolha seu número da sorte abaixo. Os números são atualizados em tempo real!</p>
-        <div id="number-grid" class="number-grid">
-            <!-- Números serão gerados aqui -->
-        </div>
+        <div id="number-grid" class="number-grid"></div>
         <button id="finalize-button" disabled>Finalizar Escolha</button>
         <p id="selection-feedback"></p>
     </div>
@@ -50,7 +52,7 @@
         <a href="#" id="admin-link">Admin</a>
     </div>
 
-    <!-- Modais (Participante, Login Admin, Painel Admin) -->
+    <!-- Modais -->
     <div id="user-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -95,7 +97,20 @@
                     <tbody id="admin-table-body"></tbody>
                 </table>
             </div>
-            <button id="export-csv-button" class="modal-form button" style="margin-top: 20px;">Exportar para CSV</button>
+            <button id="export-csv-button" class="modal-form button" style="margin-top: 20px;">Exportar Lista (CSV)</button>
+            <button id="draw-button" class="modal-form button">Sortear Número Ganhador!</button>
+        </div>
+    </div>
+
+    <div id="winner-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="winner-display">
+                <h2 style="color: #FFD700;">E o número sorteado é...</h2>
+                <p id="winner-number">--</p>
+                <h3>Parabéns!</h3>
+                <p id="winner-details" style="font-size: 1.2em;"></p>
+            </div>
         </div>
     </div>
 
@@ -104,7 +119,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-       const firebaseConfig = {
+        const firebaseConfig = {
   apiKey: "AIzaSyA9PgI0DBXIDTQq7uhrEf-GaDSIWdaqq08",
   authDomain: "sorteio-athletic.firebaseapp.com",
   databaseURL: "https://sorteio-athletic-default-rtdb.firebaseio.com",
@@ -115,7 +130,6 @@
 };
         // -------------------------------------------
 
-        // Inicializa o Firebase
         firebase.initializeApp(firebaseConfig );
         const database = firebase.database();
         const numbersRef = database.ref('takenNumbers');
@@ -129,6 +143,7 @@
             const userModal = document.getElementById('user-modal');
             const adminLoginModal = document.getElementById('admin-login-modal');
             const adminPanelModal = document.getElementById('admin-panel-modal');
+            const winnerModal = document.getElementById('winner-modal');
             
             const userForm = document.getElementById('user-form');
             const adminLoginForm = document.getElementById('admin-login-form');
@@ -136,14 +151,12 @@
             let selectedNumber = null;
             let takenNumbers = {};
 
-            // Gera a grade inicial
             for (let i = 1; i <= 100; i++) {
                 const numberBox = document.createElement('div');
                 numberBox.classList.add('number-box');
                 numberBox.textContent = i;
                 numberBox.dataset.number = i;
                 grid.appendChild(numberBox);
-
                 numberBox.addEventListener('click', () => {
                     if (numberBox.classList.contains('taken')) return;
                     const prevSelected = grid.querySelector('.number-box.selected');
@@ -155,7 +168,6 @@
                 });
             }
 
-            // "Escuta" o banco de dados em tempo real
             numbersRef.on('value', (snapshot) => {
                 takenNumbers = snapshot.val() || {};
                 updateGrid();
@@ -186,15 +198,9 @@
                 event.preventDefault();
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
-
-                // Tenta reservar o número no banco de dados
                 numbersRef.child(selectedNumber).transaction((currentData) => {
-                    if (currentData === null) {
-                        return { name, phone, date: new Date().toISOString() };
-                    } else {
-                        // O número já foi pego por outra pessoa
-                        return; // Aborta a transação
-                    }
+                    if (currentData === null) return { name, phone, date: new Date().toISOString() };
+                    return;
                 }, (error, committed, snapshot) => {
                     if (error) {
                         alert('Ocorreu um erro. Tente novamente.');
@@ -213,7 +219,6 @@
                 });
             });
             
-            // Lógica do Admin
             document.getElementById('admin-link').addEventListener('click', (e) => {
                 e.preventDefault();
                 adminLoginModal.style.display = 'block';
@@ -234,41 +239,62 @@
                 const tableBody = document.getElementById('admin-table-body');
                 tableBody.innerHTML = '';
                 const sortedNumbers = Object.keys(takenNumbers).sort((a, b) => a - b);
-
                 if (sortedNumbers.length === 0) {
                     tableBody.innerHTML = '<tr><td colspan="4">Nenhum número foi escolhido ainda.</td></tr>';
                 } else {
                     sortedNumbers.forEach(number => {
                         const data = takenNumbers[number];
                         const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${number}</td>
-                            <td>${data.name}</td>
-                            <td>${data.phone}</td>
-                            <td><button class="release-button" data-number="${number}">Liberar</button></td>
-                        `;
+                        row.innerHTML = `<td>${number}</td><td>${data.name}</td><td>${data.phone}</td><td><button class="release-button" data-number="${number}">Liberar</button></td>`;
                         tableBody.appendChild(row);
                     });
                 }
                 adminPanelModal.style.display = 'block';
             }
             
-            // Evento para liberar número
             document.getElementById('admin-table-body').addEventListener('click', (e) => {
                 if (e.target.classList.contains('release-button')) {
                     const numberToRelease = e.target.dataset.number;
-                    if (confirm(`Tem certeza que deseja liberar o número ${numberToRelease}? Esta ação não pode ser desfeita.`)) {
-                        numbersRef.child(numberToRelease).remove()
-                            .then(() => {
-                                alert(`Número ${numberToRelease} liberado com sucesso.`);
-                                showAdminPanel(); // Atualiza a tabela do admin
-                            })
-                            .catch((error) => alert('Erro ao liberar o número: ' + error));
+                    if (confirm(`Tem certeza que deseja liberar o número ${numberToRelease}?`)) {
+                        numbersRef.child(numberToRelease).remove().then(() => {
+                            alert(`Número ${numberToRelease} liberado.`);
+                            showAdminPanel();
+                        });
                     }
                 }
             });
 
-            // Funções de fechar modais, exportar CSV e gerar comprovante (sem alterações)
+            // --- NOVA FUNÇÃO DE SORTEIO ---
+            document.getElementById('draw-button').addEventListener('click', () => {
+                const participantNumbers = Object.keys(takenNumbers);
+                if (participantNumbers.length === 0) {
+                    alert('Não há números participantes para sortear.');
+                    return;
+                }
+
+                if (!confirm(`Sortear um número entre os ${participantNumbers.length} participantes?`)) {
+                    return;
+                }
+
+                const winnerNumber = participantNumbers[Math.floor(Math.random() * participantNumbers.length)];
+                const winnerData = takenNumbers[winnerNumber];
+
+                const winnerNumberEl = document.getElementById('winner-number');
+                const winnerDetailsEl = document.getElementById('winner-details');
+
+                winnerNumberEl.textContent = '...';
+                winnerDetailsEl.textContent = 'Sorteando...';
+                winnerModal.style.display = 'block';
+
+                // Animação simples
+                setTimeout(() => {
+                    winnerNumberEl.textContent = winnerNumber;
+                    winnerDetailsEl.innerHTML = `<strong>Nome:</strong> ${winnerData.name}  
+<strong>Telefone:</strong> ${winnerData.phone}`;
+                }, 2000); // Atraso de 2 segundos para criar suspense
+            });
+
+            // Funções auxiliares
             function generateReceipt(name, phone, number) {
                 const content = `COMPROVANTE - MÊS DO CLIENTE ATHLETIC\n=========================================\nNúmero Escolhido: ${number}\nNome: ${name}\nTelefone: ${phone}\nData e Hora: ${new Date().toLocaleString('pt-BR')}\n=========================================\nGuarde este comprovante. Boa sorte!`;
                 const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
