@@ -7,210 +7,41 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap' );
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .container {
-            background-color: #1a1a1a;
-            padding: 25px 35px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
-            text-align: center;
-            max-width: 90%;
-            width: 800px;
-            border: 1px solid #FFD700;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: #FFD700;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1.5px;
-        }
-
-        p {
-            color: #e0e0e0;
-            font-size: 16px;
-        }
-
-        .number-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
-            gap: 12px;
-            margin: 30px 0;
-        }
-
-        .number-box {
-            background-color: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 15px 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 18px;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .number-box:hover {
-            transform: translateY(-3px);
-            background-color: #333333;
-        }
-
-        .number-box.selected {
-            background-color: #FFD700;
-            color: #000000;
-            border-color: #FFD700;
-            transform: scale(1.1);
-        }
-
-        .number-box.taken {
-            background-color: #404040;
-            color: #888888;
-            border-color: #404040;
-            cursor: not-allowed;
-        }
-
-        #finalize-button {
-            background-color: #FFD700;
-            color: #000000;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        #finalize-button:hover {
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        #finalize-button:disabled {
-            background-color: #555555;
-            color: #999999;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        .modal {
-            display: none; 
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .modal-content {
-            background-color: #1a1a1a;
-            margin: 10% auto;
-            padding: 25px;
-            border: 1px solid #FFD700;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-            text-align: left;
-            animation: slide-down 0.4s ease-out;
-        }
-
-        @keyframes slide-down {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .modal-form label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #FFD700;
-        }
-
-        .modal-form input {
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
-            box-sizing: border-box;
-            border: 1px solid #555;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-        }
-
-        .modal-form button {
-            background-color: #FFD700;
-            color: #000000;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        #admin-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        #admin-table th, #admin-table td {
-            border: 1px solid #555;
-            padding: 8px;
-            text-align: left;
-        }
-        #admin-table th {
-            background-color: #FFD700;
-            color: #000;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 10px;
-        }
-        .footer a {
-            color: #888;
-            text-decoration: none;
-            font-size: 14px;
-        }
+        body{font-family:'Roboto',sans-serif;background-color:#000;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;min-height:100vh;box-sizing:border-box}
+        .container{background-color:#1a1a1a;padding:25px 35px;border-radius:12px;box-shadow:0 8px 20px rgba(255,215,0,.2);text-align:center;max-width:90%;width:800px;border:1px solid #FFD700;margin-bottom:20px}
+        h1{color:#FFD700;font-weight:900;text-transform:uppercase;margin-bottom:8px;letter-spacing:1.5px}
+        p{color:#e0e0e0;font-size:16px}
+        .number-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(55px,1fr));gap:12px;margin:30px 0}
+        .number-box{background-color:transparent;border:2px solid #fff;color:#fff;padding:15px 5px;border-radius:8px;cursor:pointer;font-weight:700;font-size:18px;transition:all .2s ease-in-out}
+        .number-box:hover{transform:translateY(-3px);background-color:#333}
+        .number-box.selected{background-color:#FFD700;color:#000;border-color:#FFD700;transform:scale(1.1)}
+        .number-box.taken{background-color:#404040;color:#888;border-color:#404040;cursor:not-allowed}
+        #finalize-button{background-color:#FFD700;color:#000;padding:14px 30px;border:none;border-radius:8px;cursor:pointer;font-size:18px;font-weight:700;text-transform:uppercase;transition:all .3s}
+        #finalize-button:hover{box-shadow:0 0 15px rgba(255,215,0,.5)}
+        #finalize-button:disabled{background-color:#555;color:#999;cursor:not-allowed;box-shadow:none}
+        .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgba(0,0,0,.8)}
+        .modal-content{background-color:#1a1a1a;margin:10% auto;padding:25px;border:1px solid #FFD700;width:90%;max-width:500px;border-radius:10px;text-align:left;animation:slide-down .4s ease-out}
+        @keyframes slide-down{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}
+        .close-button{color:#aaa;float:right;font-size:28px;font-weight:bold;cursor:pointer}
+        .modal-form label{display:block;margin-top:15px;font-weight:bold;color:#FFD700}
+        .modal-form input{width:100%;padding:12px;margin-top:5px;box-sizing:border-box;border:1px solid #555;border-radius:5px;background-color:#333;color:#fff}
+        .modal-form button{background-color:#FFD700;color:#000;padding:12px 15px;border:none;border-radius:5px;margin-top:20px;cursor:pointer;width:100%;font-size:16px;font-weight:bold;text-transform:uppercase}
+        #admin-table{width:100%;margin-top:20px;border-collapse:collapse}
+        #admin-table th,#admin-table td{border:1px solid #555;padding:8px;text-align:left;vertical-align:middle}
+        #admin-table th{background-color:#FFD700;color:#000}
+        .footer{text-align:center;padding:10px}
+        .footer a{color:#888;text-decoration:none;font-size:14px}
+        .release-button{background-color:#dc3545;color:white;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:12px;}
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Mês do Cliente Athletic</h1>
-        <p>Escolha seu número da sorte abaixo e clique em "Finalizar Escolha" para garantir sua participação e concorrer a prêmios incríveis!</p>
-        
-        <div id="number-grid" class="number-grid"></div>
-        
+        <p>Escolha seu número da sorte abaixo. Os números são atualizados em tempo real!</p>
+        <div id="number-grid" class="number-grid">
+            <!-- Números serão gerados aqui -->
+        </div>
         <button id="finalize-button" disabled>Finalizar Escolha</button>
         <p id="selection-feedback"></p>
     </div>
@@ -219,6 +50,7 @@
         <a href="#" id="admin-link">Admin</a>
     </div>
 
+    <!-- Modais (Participante, Login Admin, Painel Admin) -->
     <div id="user-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -227,10 +59,8 @@
             <form id="user-form" class="modal-form">
                 <label for="name">Nome Completo:</label>
                 <input type="text" id="name" name="name" required>
-                
                 <label for="phone">Telefone (WhatsApp):</label>
                 <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
-                
                 <button type="submit">Confirmar e Gerar Comprovante</button>
             </form>
         </div>
@@ -249,10 +79,9 @@
     </div>
 
     <div id="admin-panel-modal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-content" style="max-width: 800px;">
             <span class="close-button">&times;</span>
             <h2 style="color: #FFD700;">Painel do Administrador</h2>
-            <p>Lista de participantes:</p>
             <div id="admin-data-container" style="max-height: 400px; overflow-y: auto;">
                 <table id="admin-table">
                     <thead>
@@ -260,59 +89,89 @@
                             <th>Número</th>
                             <th>Nome</th>
                             <th>Telefone</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
-                    <tbody id="admin-table-body">
-                    </tbody>
+                    <tbody id="admin-table-body"></tbody>
                 </table>
             </div>
             <button id="export-csv-button" class="modal-form button" style="margin-top: 20px;">Exportar para CSV</button>
         </div>
     </div>
 
+    <!-- SDK do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script>
+       const firebaseConfig = {
+  apiKey: "AIzaSyA9PgI0DBXIDTQq7uhrEf-GaDSIWdaqq08",
+  authDomain: "sorteio-athletic.firebaseapp.com",
+  databaseURL: "https://sorteio-athletic-default-rtdb.firebaseio.com",
+  projectId: "sorteio-athletic",
+  storageBucket: "sorteio-athletic.firebasestorage.app",
+  messagingSenderId: "964152744277",
+  appId: "1:964152744277:web:a580f781cb2398157837dc"
+};
+        // -------------------------------------------
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig );
+        const database = firebase.database();
+        const numbersRef = database.ref('takenNumbers');
+
         document.addEventListener('DOMContentLoaded', () => {
             const ADMIN_PASSWORD = 'admin123';
             const grid = document.getElementById('number-grid');
             const finalizeButton = document.getElementById('finalize-button');
             const selectionFeedback = document.getElementById('selection-feedback');
+            
             const userModal = document.getElementById('user-modal');
             const adminLoginModal = document.getElementById('admin-login-modal');
             const adminPanelModal = document.getElementById('admin-panel-modal');
+            
             const userForm = document.getElementById('user-form');
             const adminLoginForm = document.getElementById('admin-login-form');
 
             let selectedNumber = null;
-            let takenNumbers = JSON.parse(localStorage.getItem('athleticRifa')) || {};
+            let takenNumbers = {};
 
-            function saveState() {
-                localStorage.setItem('athleticRifa', JSON.stringify(takenNumbers));
+            // Gera a grade inicial
+            for (let i = 1; i <= 100; i++) {
+                const numberBox = document.createElement('div');
+                numberBox.classList.add('number-box');
+                numberBox.textContent = i;
+                numberBox.dataset.number = i;
+                grid.appendChild(numberBox);
+
+                numberBox.addEventListener('click', () => {
+                    if (numberBox.classList.contains('taken')) return;
+                    const prevSelected = grid.querySelector('.number-box.selected');
+                    if (prevSelected) prevSelected.classList.remove('selected');
+                    numberBox.classList.add('selected');
+                    selectedNumber = i;
+                    selectionFeedback.textContent = `Você selecionou o número ${selectedNumber}.`;
+                    finalizeButton.disabled = false;
+                });
             }
 
-            function loadState() {
-                grid.innerHTML = '';
-                for (let i = 1; i <= 100; i++) {
-                    const numberBox = document.createElement('div');
-                    numberBox.classList.add('number-box');
-                    numberBox.textContent = i;
-                    numberBox.dataset.number = i;
+            // "Escuta" o banco de dados em tempo real
+            numbersRef.on('value', (snapshot) => {
+                takenNumbers = snapshot.val() || {};
+                updateGrid();
+            });
 
+            function updateGrid() {
+                for (let i = 1; i <= 100; i++) {
+                    const numberBox = grid.querySelector(`[data-number='${i}']`);
                     if (takenNumbers[i]) {
                         numberBox.classList.add('taken');
+                        numberBox.classList.remove('selected');
                         numberBox.title = `Escolhido por: ${takenNumbers[i].name}`;
+                    } else {
+                        numberBox.classList.remove('taken');
+                        numberBox.title = '';
                     }
-
-                    grid.appendChild(numberBox);
-
-                    numberBox.addEventListener('click', () => {
-                        if (numberBox.classList.contains('taken')) return;
-                        const prevSelected = grid.querySelector(`.number-box.selected`);
-                        if (prevSelected) prevSelected.classList.remove('selected');
-                        numberBox.classList.add('selected');
-                        selectedNumber = i;
-                        selectionFeedback.textContent = `Você selecionou o número ${selectedNumber}.`;
-                        finalizeButton.disabled = false;
-                    });
                 }
             }
 
@@ -327,30 +186,34 @@
                 event.preventDefault();
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
-                const chosenBox = grid.querySelector(`[data-number='${selectedNumber}']`);
-                chosenBox.classList.remove('selected');
-                chosenBox.classList.add('taken');
-                chosenBox.title = `Escolhido por: ${name}`;
-                takenNumbers[selectedNumber] = { name, phone, date: new Date().toISOString() };
-                saveState();
-                generateReceipt(name, phone, selectedNumber);
-                alert(`Parabéns, ${name}! Seu número ${selectedNumber} foi reservado com sucesso.`);
-                userModal.style.display = 'none';
-                selectedNumber = null;
-                finalizeButton.disabled = true;
-                selectionFeedback.textContent = '';
-                userForm.reset();
+
+                // Tenta reservar o número no banco de dados
+                numbersRef.child(selectedNumber).transaction((currentData) => {
+                    if (currentData === null) {
+                        return { name, phone, date: new Date().toISOString() };
+                    } else {
+                        // O número já foi pego por outra pessoa
+                        return; // Aborta a transação
+                    }
+                }, (error, committed, snapshot) => {
+                    if (error) {
+                        alert('Ocorreu um erro. Tente novamente.');
+                    } else if (!committed) {
+                        alert('Ops! Alguém acabou de escolher este número. Por favor, selecione outro.');
+                        userModal.style.display = 'none';
+                    } else {
+                        generateReceipt(name, phone, selectedNumber);
+                        alert(`Parabéns, ${name}! Seu número ${selectedNumber} foi reservado com sucesso.`);
+                        userModal.style.display = 'none';
+                    }
+                    selectedNumber = null;
+                    finalizeButton.disabled = true;
+                    selectionFeedback.textContent = '';
+                    userForm.reset();
+                });
             });
-
-            function generateReceipt(name, phone, number) {
-                const content = `COMPROVANTE - MÊS DO CLIENTE ATHLETIC\n=========================================\nNúmero Escolhido: ${number}\nNome: ${name}\nTelefone: ${phone}\nData e Hora: ${new Date().toLocaleString('pt-BR')}\n=========================================\nGuarde este comprovante. Boa sorte!`;
-                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = `comprovante_athletic_${number}.txt`;
-                link.click();
-            }
-
+            
+            // Lógica do Admin
             document.getElementById('admin-link').addEventListener('click', (e) => {
                 e.preventDefault();
                 adminLoginModal.style.display = 'block';
@@ -358,8 +221,7 @@
 
             adminLoginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const password = document.getElementById('password').value;
-                if (password === ADMIN_PASSWORD) {
+                if (document.getElementById('password').value === ADMIN_PASSWORD) {
                     adminLoginModal.style.display = 'none';
                     document.getElementById('password').value = '';
                     showAdminPanel();
@@ -372,44 +234,61 @@
                 const tableBody = document.getElementById('admin-table-body');
                 tableBody.innerHTML = '';
                 const sortedNumbers = Object.keys(takenNumbers).sort((a, b) => a - b);
+
                 if (sortedNumbers.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="3">Nenhum número foi escolhido ainda.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="4">Nenhum número foi escolhido ainda.</td></tr>';
                 } else {
                     sortedNumbers.forEach(number => {
                         const data = takenNumbers[number];
-                        const row = `<tr><td>${number}</td><td>${data.name}</td><td>${data.phone}</td></tr>`;
-                        tableBody.innerHTML += row;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${number}</td>
+                            <td>${data.name}</td>
+                            <td>${data.phone}</td>
+                            <td><button class="release-button" data-number="${number}">Liberar</button></td>
+                        `;
+                        tableBody.appendChild(row);
                     });
                 }
                 adminPanelModal.style.display = 'block';
             }
+            
+            // Evento para liberar número
+            document.getElementById('admin-table-body').addEventListener('click', (e) => {
+                if (e.target.classList.contains('release-button')) {
+                    const numberToRelease = e.target.dataset.number;
+                    if (confirm(`Tem certeza que deseja liberar o número ${numberToRelease}? Esta ação não pode ser desfeita.`)) {
+                        numbersRef.child(numberToRelease).remove()
+                            .then(() => {
+                                alert(`Número ${numberToRelease} liberado com sucesso.`);
+                                showAdminPanel(); // Atualiza a tabela do admin
+                            })
+                            .catch((error) => alert('Erro ao liberar o número: ' + error));
+                    }
+                }
+            });
 
+            // Funções de fechar modais, exportar CSV e gerar comprovante (sem alterações)
+            function generateReceipt(name, phone, number) {
+                const content = `COMPROVANTE - MÊS DO CLIENTE ATHLETIC\n=========================================\nNúmero Escolhido: ${number}\nNome: ${name}\nTelefone: ${phone}\nData e Hora: ${new Date().toLocaleString('pt-BR')}\n=========================================\nGuarde este comprovante. Boa sorte!`;
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `comprovante_athletic_${number}.txt`;
+                link.click();
+            }
             document.getElementById('export-csv-button').addEventListener('click', () => {
                 let csvContent = "data:text/csv;charset=utf-8,Numero,Nome,Telefone\n";
-                const sortedNumbers = Object.keys(takenNumbers).sort((a, b) => a - b);
-                sortedNumbers.forEach(number => {
-                    const data = takenNumbers[number];
-                    csvContent += `${number},"${data.name}","${data.phone}"\n`;
+                Object.keys(takenNumbers).sort((a, b) => a - b).forEach(num => {
+                    csvContent += `${num},"${takenNumbers[num].name}","${takenNumbers[num].phone}"\n`;
                 });
-                const encodedUri = encodeURI(csvContent);
                 const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
+                link.setAttribute("href", encodeURI(csvContent));
                 link.setAttribute("download", "lista_participantes_athletic.csv");
-                document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link);
             });
-
-            document.querySelectorAll('.close-button').forEach(button => {
-                button.onclick = function() { this.closest('.modal').style.display = 'none'; }
-            });
-            window.onclick = function(event) {
-                if (event.target.classList.contains('modal')) {
-                    event.target.style.display = 'none';
-                }
-            }
-
-            loadState();
+            document.querySelectorAll('.close-button').forEach(b => { b.onclick = function() { this.closest('.modal').style.display = 'none'; } });
+            window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; };
         });
     </script>
 
